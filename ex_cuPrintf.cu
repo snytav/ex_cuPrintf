@@ -14,11 +14,11 @@ __global__ void device_greetings(void){
 SurfaceEmulator *d_surf;
 
 __global__ void kernel(SurfaceEmulator **d_s,int n,int m){
-	*d_s = new SurfaceEmulator(m,n);
-    (*d_s)->write(2,3,3.14);
-    double d = 0.0;
-    d = (*d_s)->read(2,3);
-    printf("surf read %e\n",d);
+	//*d_s = new SurfaceEmulator(m,n);
+ //   (*d_s)->write(2,3,3.14);
+//    double d = 0.0;
+//    d = (*d_s)->read(2,3);
+    cuPrintf("surf read \n");
 
 }
 
@@ -29,7 +29,7 @@ int main(){
 
         //greet from the host
 
-        printf("Helo world, from the host\n");
+        //printf("Hello world, from the host\n");
 
 //intitialize cuPrintf
 
@@ -37,7 +37,7 @@ int main(){
 
 //launch the kernel with a single thread
 
-        device_greetings<<<1,1>>>();
+        kernel<<<1,1>>>(&d_surf,3,5);
 
 //display the device's greetings
 
